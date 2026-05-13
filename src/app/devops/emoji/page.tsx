@@ -7,8 +7,8 @@
 import { useEffect, useMemo, useState } from "react";
 
 import Card from "@/components/ui/card";
-import Input from "@/components/ui/input";
 import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
 import Toast from "@/components/ui/toast";
 
 import LeaderboardList from "@/components/leaderboard/leaderboard-list";
@@ -22,13 +22,9 @@ export default function EmojiQuizPage() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const [answer, setAnswer] = useState("");
-
-  const [score, setScore] = useState(0);
-
   const [timeLeft, setTimeLeft] = useState(10);
 
-  const [totalTime, setTotalTime] = useState(0);
+  const [score, setScore] = useState(0);
 
   const [loading, setLoading] = useState(false);
 
@@ -40,13 +36,14 @@ export default function EmojiQuizPage() {
     type: "success" as "success" | "error",
   });
 
-  // RANDOM QUESTION FIX
+  // RANDOM 10 QUESTIONS
   const questions = useMemo(() => {
     return [...emojiQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
   }, [started]);
 
   const question = questions[currentQuestion];
 
+  // TOAST
   const showToast = (message: string, type: "success" | "error") => {
     setToast({
       visible: true,
@@ -59,7 +56,7 @@ export default function EmojiQuizPage() {
         ...prev,
         visible: false,
       }));
-    }, 1500);
+    }, 1200);
   };
 
   // FETCH LEADERBOARD
@@ -81,26 +78,24 @@ export default function EmojiQuizPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // COUNTDOWN
+  // TIMER
   useEffect(() => {
     if (!started) return;
 
     if (timeLeft <= 0) {
-      handleNextQuestion();
+      handleAnswer("");
 
       return;
     }
 
     const interval = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
-
-      setTotalTime((prev) => prev + 1);
     }, 1000);
 
     return () => clearInterval(interval);
   }, [timeLeft, started]);
 
-  // START
+  // START QUIZ
   const handleStart = () => {
     if (!name) {
       showToast("Nama wajib diisi", "error");
@@ -117,42 +112,38 @@ export default function EmojiQuizPage() {
 
     setCurrentQuestion(0);
 
-    setAnswer("");
-
-    setScore(0);
-
     setTimeLeft(10);
 
-    setTotalTime(0);
+    setScore(0);
 
     setLoading(false);
 
     setName("");
   };
 
-  // NEXT
-  const handleNextQuestion = async () => {
+  // ANSWER
+  const handleAnswer = async (selectedAnswer: string) => {
     if (loading) return;
 
     setLoading(true);
 
-    const isCorrect =
-      answer.toLowerCase().trim() === question.answer.toLowerCase().trim();
+    const isCorrect = selectedAnswer === question.correctAnswer;
 
-    const updatedScore = isCorrect ? score + 1 : score;
+    let updatedScore = score;
 
+    // SCORING
     if (isCorrect) {
+      const gainedScore = 1000 + timeLeft * 100;
+
+      updatedScore = score + gainedScore;
+
       setScore(updatedScore);
 
-      showToast("Jawaban benar!", "success");
+      showToast(`+${gainedScore} Score`, "success");
     }
-
-    setAnswer("");
 
     // FINISH
     if (currentQuestion >= questions.length - 1) {
-      const finalScore = updatedScore * 1000 - totalTime;
-
       try {
         await fetch("/api/results", {
           method: "POST",
@@ -170,28 +161,27 @@ export default function EmojiQuizPage() {
 
             timerMode: "QUIZ",
 
-            duration: totalTime,
+            duration: 100 - timeLeft,
 
             score: updatedScore,
 
-            correctAnswers: updatedScore,
+            correctAnswers: Math.floor(updatedScore / 1000),
 
             totalQuestions: questions.length,
 
-            finalScore,
+            finalScore: updatedScore,
           }),
         });
 
-        showToast("Quiz selesai!", "success");
-
         fetchLeaderboard();
+
+        showToast("Quiz selesai!", "success");
       } catch (error) {
         console.log(error);
 
         showToast("Gagal save score", "error");
       }
 
-      // balik ke home
       setTimeout(() => {
         resetQuiz();
       }, 1500);
@@ -199,21 +189,17 @@ export default function EmojiQuizPage() {
       return;
     }
 
-    setCurrentQuestion((prev) => prev + 1);
+    // NEXT QUESTION
+    setTimeout(() => {
+      setCurrentQuestion((prev) => prev + 1);
 
-    setTimeLeft(10);
+      setTimeLeft(10);
 
-    setLoading(false);
+      setLoading(false);
+    }, 500);
   };
 
-  // ENTER
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleNextQuestion();
-    }
-  };
-
-  // HOME SCREEN
+  // HOME
   if (!started) {
     return (
       <>
@@ -294,46 +280,20 @@ export default function EmojiQuizPage() {
     );
   }
 
-  // QUIZ SCREEN
+  // QUIZ
   return (
     <>
-      <main
-        className="
-          min-h-screen
-          flex
-          items-center
-          justify-center
-          p-6
-        "
-      >
-        <Card
-          className="
-            w-full
-            max-w-3xl
-            p-10
-          "
-        >
-          <div
-            className="
-              flex
-              flex-col
-              gap-8
-            "
-          >
+      <main className="min-h-screen flex items-center justify-center p-6">
+        <Card className="w-full max-w-4xl p-10">
+          <div className="flex flex-col gap-8">
             {/* HEADER */}
-            <div
-              className="
-                flex
-                items-center
-                justify-between
-              "
-            >
+            <div className="flex items-center justify-between">
               <div>
                 <p className="text-slate-500">Question</p>
 
                 <h2
                   className="
-                    text-4xl
+                    text-5xl
                     font-black
                   "
                 >
@@ -346,9 +306,9 @@ export default function EmojiQuizPage() {
               <div
                 className={`
                   rounded-3xl
-                  px-6
-                  py-4
-                  text-4xl
+                  px-8
+                  py-5
+                  text-5xl
                   font-black
 
                   ${
@@ -374,32 +334,42 @@ export default function EmojiQuizPage() {
               className="
                 rounded-3xl
                 bg-slate-100
-                p-16
+                p-20
                 text-center
-                text-8xl
+                text-9xl
                 shadow-inner
               "
             >
               {question.emoji}
             </div>
 
-            {/* INPUT */}
-            <Input
-              placeholder="Jawaban..."
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              onKeyDown={handleKeyDown}
-              autoFocus
-            />
-
-            {/* BUTTON */}
-            <Button
-              variant="devops"
-              onClick={handleNextQuestion}
-              disabled={loading}
-            >
-              NEXT
-            </Button>
+            {/* OPTIONS */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {question.options.map((option) => (
+                <button
+                  key={option}
+                  disabled={loading}
+                  onClick={() => handleAnswer(option)}
+                  className="
+                      rounded-3xl
+                      border
+                      border-slate-200
+                      bg-white
+                      p-6
+                      text-left
+                      text-xl
+                      font-bold
+                      transition-all
+                      hover:scale-[1.02]
+                      hover:border-orange-300
+                      hover:bg-orange-50
+                      disabled:opacity-50
+                    "
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
 
             {/* SCORE */}
             <div className="text-center">
@@ -407,8 +377,13 @@ export default function EmojiQuizPage() {
 
               <p
                 className="
-                  text-5xl
+                  text-6xl
                   font-black
+                  bg-gradient-to-r
+                  from-orange-400
+                  to-red-500
+                  bg-clip-text
+                  text-transparent
                 "
               >
                 {score}
