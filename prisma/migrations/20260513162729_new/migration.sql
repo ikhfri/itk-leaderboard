@@ -9,6 +9,7 @@ CREATE TABLE "Result" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "booth" "BoothType" NOT NULL,
+    "challenge" TEXT NOT NULL,
     "timerMode" "TimerMode" NOT NULL,
     "duration" INTEGER NOT NULL,
     "countdownStart" INTEGER,

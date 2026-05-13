@@ -27,6 +27,7 @@ interface Props {
   variant: Variant;
 
   scoreLabel: string;
+  challenge: string;
 
   scoreField: "score" | "connectedPins";
 }
@@ -36,6 +37,7 @@ export default function BoothPage({
   title,
   description,
   variant,
+  challenge,
   scoreLabel,
   scoreField,
 }: Props) {
@@ -48,11 +50,11 @@ export default function BoothPage({
   const [mode, setMode] = useState<"stopwatch" | "countdown">("stopwatch");
 
   const [countdownTime, setCountdownTime] = useState(60);
-const [toast, setToast] = useState({
-  visible: false,
-  message: "",
-  type: "success" as "success" | "error",
-});
+  const [toast, setToast] = useState({
+    visible: false,
+    message: "",
+    type: "success" as "success" | "error",
+  });
   const timer = useTimer({
     mode,
 
@@ -101,7 +103,6 @@ const [toast, setToast] = useState({
 
     let duration = timer.time;
 
-
     if (mode === "countdown") {
       duration = countdownTime - timer.time;
     }
@@ -114,6 +115,7 @@ const [toast, setToast] = useState({
       timerMode: mode === "stopwatch" ? "STOPWATCH" : "COUNTDOWN",
 
       duration,
+      challenge,
 
       countdownStart: mode === "countdown" ? countdownTime : null,
     };

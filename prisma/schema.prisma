@@ -18,13 +18,14 @@ enum TimerMode {
   STOPWATCH
   COUNTDOWN
 }
-
 model Result {
   id              String      @id @default(cuid())
 
   name            String
 
   booth           BoothType
+
+  challenge       String
 
   timerMode       TimerMode
 

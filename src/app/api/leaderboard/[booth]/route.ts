@@ -7,6 +7,7 @@ export async function GET(
   context: {
     params: Promise<{
       booth: string;
+      challenge: string;
     }>;
   },
 ) {
@@ -18,6 +19,8 @@ export async function GET(
     where: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       booth: booth as any,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      challenge: params.challenge as any,
     },
 
     orderBy: [

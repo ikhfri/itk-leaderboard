@@ -29,6 +29,8 @@ export async function POST(req: Request) {
 
         booth: body.booth,
 
+        challenge: body.challenge,
+
         timerMode: body.timerMode,
 
         duration: body.duration,
