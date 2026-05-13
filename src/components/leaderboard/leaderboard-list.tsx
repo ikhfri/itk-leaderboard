@@ -16,6 +16,9 @@ interface Result {
   timerMode?: string;
 
   finalScore: number;
+  correctAnswers?: number;
+
+  totalQuestions?: number;
 }
 
 interface Props {
@@ -215,7 +218,11 @@ export default function LeaderboardList({ results }: Props) {
                 </p>
 
                 <p className="text-slate-500 font-medium">
-                  {item.score !== undefined ? "Score" : "Pins"}
+                  {item.correctAnswers !== undefined
+                    ? `${item.correctAnswers}/${item.totalQuestions}`
+                    : item.score !== undefined
+                      ? "Score"
+                      : "Pins"}
                 </p>
                 <p
                   className="

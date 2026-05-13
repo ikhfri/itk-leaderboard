@@ -17,26 +17,21 @@ enum BoothType {
 enum TimerMode {
   STOPWATCH
   COUNTDOWN
+  QUIZ
 }
+
 model Result {
   id              String      @id @default(cuid())
-
   name            String
-
   booth           BoothType
-
   challenge       String
-
   timerMode       TimerMode
-
   duration        Int
-
   countdownStart  Int?
-
   score           Int?
-
   connectedPins   Int?
-
+  totalQuestions  Int?
+  correctAnswers  Int?
   finalScore      Int
 
   createdAt       DateTime @default(now())
