@@ -8,6 +8,7 @@ export default function Page() {
       description="Tebak gambar AI generated"
       variant="ai"
       scoreLabel="Score Benar"
+      challenge="GUESS_AI"
       scoreField="score"
     />
   );

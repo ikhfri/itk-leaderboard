@@ -7,6 +7,7 @@ export default function Page() {
       title="NETWORK BOOTH"
       description="Crimping Cable Race"
       variant="network"
+      challenge="CRIMPING"
       scoreLabel="Jumlah Pin Berhasil"
       scoreField="connectedPins"
     />
