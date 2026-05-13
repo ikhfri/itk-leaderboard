@@ -379,7 +379,7 @@ export default function EmojiQuizPage() {
                 className="
                   text-6xl
                   font-black
-                  bg-gradient-to-r
+                  bg-linear-to-r
                   from-orange-400
                   to-red-500
                   bg-clip-text

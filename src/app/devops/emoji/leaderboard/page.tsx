@@ -7,11 +7,11 @@ import Card from "@/components/ui/card";
 
 import LeaderboardList from "@/components/leaderboard/leaderboard-list";
 
-export default function Page() {
+export default function DockerfileLeaderboardPage() {
   const [results, setResults] = useState([]);
 
   const fetchLeaderboard = async () => {
-    const response = await fetch("/api/leaderboard/devops/emoji");
+    const response = await fetch("/api/leaderboard/devops/dockerfile");
 
     const data = await response.json();
 
@@ -34,9 +34,23 @@ export default function Page() {
         <Card className="p-10">
           <div className="flex flex-col gap-8">
             <div>
-              <h1 className="text-6xl font-black">DEVOPS EMOJI</h1>
+              <h1
+                className="
+                  text-6xl
+                  font-black
+                "
+              >
+                DOCKERFILE
+              </h1>
 
-              <p className="text-slate-500 mt-3">Leaderboard Tebak Emoji</p>
+              <p
+                className="
+                  text-slate-500
+                  mt-3
+                "
+              >
+                Leaderboard Dockerfile
+              </p>
             </div>
 
             <LeaderboardList results={results} />
