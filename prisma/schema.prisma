@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum BoothType {
+  AI
+  DEVOPS
+  NETWORK
+}
+
+enum TimerMode {
+  STOPWATCH
+  COUNTDOWN
+}
+
+model Result {
+  id              String      @id @default(cuid())
+
+  name            String
+
+  booth           BoothType
+
+  timerMode       TimerMode
+
+  duration        Int
+
+  countdownStart  Int?
+
+  score           Int?
+
+  connectedPins   Int?
+
+  finalScore      Int
+
+  createdAt       DateTime @default(now())
+}
