@@ -15,126 +15,126 @@ export const emojiQuestions = [
 
   {
     id: 3,
-    emoji: "🐙",
+    emoji: "🐙📁",
     correctAnswer: "GitHub",
     options: ["GitLab", "GitHub", "Bitbucket", "Docker Hub"],
   },
 
   {
     id: 4,
-    emoji: "🦊",
+    emoji: "🦊📦",
     correctAnswer: "GitLab",
     options: ["GitHub", "GitLab", "Grafana", "AWS"],
   },
 
   {
     id: 5,
-    emoji: "⚙️",
+    emoji:"🤵⚙️",
     correctAnswer: "Jenkins",
     options: ["Docker", "Jenkins", "Helm", "Terraform"],
   },
 
   {
     id: 6,
-    emoji: "📊",
+    emoji: "📊📈",
     correctAnswer: "Grafana",
     options: ["Prometheus", "Grafana", "Docker", "GitLab"],
   },
 
   {
     id: 7,
-    emoji: "🔥",
+    emoji: "🔥📈",
     correctAnswer: "Prometheus",
     options: ["Grafana", "Prometheus", "Docker", "Linux"],
   },
 
   {
     id: 8,
-    emoji: "☁️",
+    emoji: "☁️🟧",
     correctAnswer: "AWS",
     options: ["Azure", "Vercel", "AWS", "Netlify"],
   },
 
   {
     id: 9,
-    emoji: "🐧",
+    emoji: "🐧💻",
     correctAnswer: "Linux",
     options: ["Ubuntu", "Docker", "Linux", "Git"],
   },
 
   {
     id: 10,
-    emoji: "🚀",
+    emoji: "🚀▲",
     correctAnswer: "Vercel",
     options: ["AWS", "Docker", "Vercel", "Kubernetes"],
   },
 
   {
     id: 11,
-    emoji: "🦭",
+    emoji: "🦭📦",
     correctAnswer: "Podman",
     options: ["Podman", "Docker", "Helm", "Linux"],
   },
 
   {
     id: 12,
-    emoji: "🌍🐳",
+    emoji: "🐳🌍",
     correctAnswer: "Docker Hub",
     options: ["Docker Hub", "GitHub", "Kubernetes", "AWS"],
   },
 
   {
     id: 13,
-    emoji: "🧱",
+    emoji: "⛵📦",
     correctAnswer: "Helm",
     options: ["Helm", "Terraform", "Docker", "Jenkins"],
   },
 
   {
     id: 14,
-    emoji: "🔄",
+    emoji: "🔄🚀",
     correctAnswer: "CI/CD",
     options: ["Docker", "CI/CD", "Git", "Kubernetes"],
   },
 
   {
     id: 15,
-    emoji: "🔧",
+    emoji: "🌐⚡",
     correctAnswer: "Nginx",
     options: ["Apache", "Docker", "Nginx", "Linux"],
   },
 
   {
     id: 16,
-    emoji: "🔐",
+    emoji: "🔐🏦",
     correctAnswer: "Vault",
     options: ["Vault", "AWS", "Linux", "GitLab"],
   },
 
   {
     id: 17,
-    emoji: "📦",
+    emoji: "📦🐳",
     correctAnswer: "Container",
     options: ["Container", "Kubernetes", "CI/CD", "GitHub"],
   },
 
   {
     id: 18,
-    emoji: "⚡",
+    emoji: "⚡🌐",
     correctAnswer: "Netlify",
     options: ["Netlify", "Vercel", "AWS", "Docker"],
   },
 
   {
     id: 19,
-    emoji: "📈",
+    emoji: "📈👀",
     correctAnswer: "Monitoring",
     options: ["Deployment", "Monitoring", "Container", "Docker"],
   },
 
   {
     id: 20,
-    emoji: "🌐",
+    emoji: "☁️🛡️",
     correctAnswer: "Cloudflare",
     options: ["AWS", "Cloudflare", "GitHub", "Linux"],
   },
@@ -148,14 +148,14 @@ export const emojiQuestions = [
 
   {
     id: 22,
-    emoji: "☸️📦",
+    emoji: "☸️⌨️",
     correctAnswer: "Kubectl",
     options: ["Kubectl", "Docker", "GitHub", "Prometheus"],
   },
 
   {
     id: 23,
-    emoji: "⚙️☁️",
+    emoji: "🐙⚙️",
     correctAnswer: "GitHub Actions",
     options: ["Jenkins", "GitHub Actions", "GitLab", "Docker"],
   },
@@ -169,21 +169,21 @@ export const emojiQuestions = [
 
   {
     id: 25,
-    emoji: "📂🐙",
+    emoji: "📂🌳",
     correctAnswer: "Git",
     options: ["Git", "GitHub", "GitLab", "Docker"],
   },
 
   {
     id: 26,
-    emoji: "🐳☁️",
+    emoji: "🐳🏪",
     correctAnswer: "Docker Registry",
     options: ["Docker Registry", "Docker Hub", "AWS", "Cloudflare"],
   },
 
   {
     id: 27,
-    emoji: "☸️🌐",
+    emoji: "☸️🚪",
     correctAnswer: "Ingress",
     options: ["Ingress", "Kubectl", "Helm", "Nginx"],
   },
@@ -204,7 +204,7 @@ export const emojiQuestions = [
 
   {
     id: 30,
-    emoji: "⚙️🔄",
+    emoji: "⚙️🤖",
     correctAnswer: "Automation",
     options: ["Automation", "Monitoring", "Deployment", "Git"],
   },

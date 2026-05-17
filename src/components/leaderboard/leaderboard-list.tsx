@@ -16,6 +16,7 @@ interface Result {
   timerMode?: string;
 
   finalScore: number;
+
   correctAnswers?: number;
 
   totalQuestions?: number;
@@ -109,136 +110,146 @@ export default function LeaderboardList({ results }: Props) {
         </div>
       )}
 
-      {results.map((item, index) => {
-        const value =
-          item.score !== undefined ? item.score : (item.connectedPins ?? 0);
+      {results.map((item, index) => (
+        <div
+          key={item.id}
+          className={`
+            group
+            relative
+            overflow-hidden
+            rounded-3xl
+            border
+            p-5
+            transition-all
+            hover:scale-[1.02]
+            hover:shadow-2xl
 
-        return (
-          <div
-            key={item.id}
-            className={`
-              group
-              relative
-              overflow-hidden
-              rounded-3xl
-              border
-              p-5
-              transition-all
-              hover:scale-[1.02]
-              hover:shadow-2xl
-
-              ${
-                index === 0
+            ${
+              index === 0
+                ? `
+                  border-yellow-300
+                  bg-linear-to-r
+                  from-yellow-100
+                  to-yellow-50
+                `
+                : index === 1
                   ? `
-                    border-yellow-300
-                    bg-linear-to-r
-                    from-yellow-100
-                    to-yellow-50
-                  `
-                  : index === 1
+                  border-slate-300
+                  bg-linear-to-r
+                  from-slate-100
+                  to-slate-50
+                `
+                  : index === 2
                     ? `
-                    border-slate-300
-                    bg-linear-to-r
-                    from-slate-100
-                    to-slate-50
-                  `
-                    : index === 2
-                      ? `
-                    border-orange-200
-                    bg-linear-to-r
-                    from-orange-100
-                    to-orange-50
-                  `
-                      : `
-                    border-white/40
-                    bg-white/60
-                    backdrop-blur-xl
-                  `
-              }
-            `}
+                  border-orange-200
+                  bg-linear-to-r
+                  from-orange-100
+                  to-orange-50
+                `
+                    : `
+                  border-white/40
+                  bg-white/60
+                  backdrop-blur-xl
+                `
+            }
+          `}
+        >
+          {/* glow */}
+          <div
+            className="
+              absolute
+              inset-0
+              opacity-0
+              group-hover:opacity-100
+              transition-all
+              bg-linear-to-r
+              from-cyan-200/20
+              to-purple-200/20
+            "
+          />
+
+          <div
+            className="
+              relative z-10
+              flex items-center justify-between
+              gap-4
+            "
           >
-            {/* glow */}
-            <div
-              className="
-                absolute
-                inset-0
-                opacity-0
-                group-hover:opacity-100
-                transition-all
-                bg-linear-to-r
-                from-cyan-200/20
-                to-purple-200/20
-              "
-            />
+            {/* LEFT */}
+            <div className="flex items-center gap-4">
+              {getRankIcon(index)}
 
-            <div className="relative z-10 flex items-center justify-between gap-4">
-              {/* LEFT */}
-              <div className="flex items-center gap-4">
-                {getRankIcon(index)}
-
-                <div>
-                  <h3
-                    className="
-                      text-2xl
-                      font-black
-                      tracking-tight
-                    "
-                  >
-                    {item.name}
-                  </h3>
-
-                  <div
-                    className="
-                      flex items-center gap-2
-                      mt-1
-                      text-slate-500
-                    "
-                  >
-                    <Timer size={16} />
-
-                    <span>{item.duration} detik</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* RIGHT */}
-              <div className="text-right">
-                <p
+              <div>
+                <h3
                   className="
-                    text-4xl
+                    text-2xl
                     font-black
-                    bg-linear-to-r
-                    from-cyan-500
-                    to-purple-500
-                    bg-clip-text
-                    text-transparent
+                    tracking-tight
                   "
                 >
-                  {value}
-                </p>
+                  {item.name}
+                </h3>
 
-                <p className="text-slate-500 font-medium">
-                  {item.correctAnswers !== undefined
-                    ? `${item.correctAnswers}/${item.totalQuestions}`
-                    : item.score !== undefined
-                      ? "Score"
-                      : "Pins"}
-                </p>
-                <p
+                <div
                   className="
-    mt-2
-    text-sm
-    font-semibold
-    text-slate-600
-  "
+                    flex items-center gap-2
+                    mt-1
+                    text-slate-500
+                  "
                 >
-                  Final Score: {item.finalScore}
-                </p>
+                  <Timer size={16} />
+
+                  <span>{item.duration} detik</span>
+                </div>
               </div>
             </div>
+
+            {/* RIGHT */}
+            <div className="text-right">
+              <p
+                className="
+                  text-4xl
+                  font-black
+                  bg-linear-to-r
+                  from-cyan-500
+                  to-purple-500
+                  bg-clip-text
+                  text-transparent
+                "
+              >
+                {item.correctAnswers !== undefined
+                  ? item.correctAnswers
+                  : item.score !== undefined
+                    ? item.score
+                    : (item.connectedPins ?? 0)}
+              </p>
+
+              <p className="text-slate-500 font-medium">
+                {item.correctAnswers !== undefined ? (
+                  <>
+                    {item.correctAnswers}/{item.totalQuestions}
+                  </>
+                ) : item.connectedPins !== undefined ? (
+                  <>{item.connectedPins} Pins</>
+                ) : (
+                  <>Score</>
+                )}
+              </p>
+
+              <p
+                className="
+                  mt-2
+                  text-sm
+                  font-semibold
+                  text-slate-600
+                "
+              >
+                Final Score: {item.finalScore}
+              </p>
+            </div>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }

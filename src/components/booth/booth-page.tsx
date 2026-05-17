@@ -18,8 +18,8 @@ import LeaderboardList from "@/components/leaderboard/leaderboard-list";
 type Variant = "ai" | "devops" | "network";
 
 interface Props {
-  booth: "AI/GUESS_AI" | "DEVOPS/PORT_CHECKER" | "NETWORK/PIN_CONNECTION";
-  challenge: "GUESS_AI" | "PORT_CHECKER" | "PIN_CONNECTION";
+  booth: "AI" | "DEVOPS" | "NETWORK";
+  challenge:string;
   title: string;
 
   description: string;
@@ -61,8 +61,8 @@ export default function BoothPage({
 
   const fetchLeaderboard = async () => {
     const response = await fetch(
-      `/api/leaderboard/${booth.toLowerCase()}/${challenge.toLowerCase()}`,
-    );
+  `/api/leaderboard/${booth.toLowerCase()}/${challenge.toLowerCase()}`
+);
 
     const data = await response.json();
 
